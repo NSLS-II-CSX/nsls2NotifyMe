@@ -1,0 +1,8 @@
+pyOlog.egg-info
+/target/
+*.pyc
+*.swp
+*.swo
+build
+dist
+doc/_*
