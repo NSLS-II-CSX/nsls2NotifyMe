@@ -1,6 +1,8 @@
 from subprocess import Popen, PIPE, STDOUT
 from epics import PV
 from time import sleep, time
+import smtplib
+from email.mime.text import MIMEText
 
 import logging, sys
 logger = logging.getLogger(__name__)
@@ -18,6 +20,8 @@ class NotifyMe(object):
     self.messagePV1 = PV('OP{1}Message', callback = self._update)
     self.messagePV2 = PV('OP{2}Message', callback = self._update)
     self.new_message = False
+    self.email_list = ['6317416194@messaging.sprintpcs.com']
+
   def _update(self, *args, **kwargs):
     logger.info("Recieved Callback from PV (%s).", kwargs['pvname'])
     self.new_message = True
@@ -33,11 +37,27 @@ class NotifyMe(object):
 
     msg = msg + msg1 + '\n' + msg2 + '\n'
 
+    # Speak Message
     self._speak(msg)
+
+    # Email Message
+    self._email(msg)
+
   def _speak(self, msg):
     p = Popen(['espeak', '-a 100', '-s 150', '-ven-uk'],
               stdout = PIPE, stdin = PIPE, stderr = PIPE)
     p.communicate(input = msg)
+
+  def _email(self, text):
+    msg = MIMEText(text)
+    msg['Subject'] = 'New NSLS-II OP Message'
+    msg['From']    = 'donotreply@bnl.gov'
+    msg['To']      = 'swilkins@bnl.gov'
+  
+    s = smtplib.SMTP('xf23id-ca.cs.nsls2.local')
+    s.sendmail(msg['From'], self.email_list, msg.as_string())
+    s.quit()
+
   def run(self):
     while 1:
       sleep(1)
