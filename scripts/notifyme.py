@@ -1,7 +1,9 @@
+from notifyMe import NotifyMe
 
-from notifyMe import *
 
 def main():
-  n = NotifyMe()
-  n.run()
-
+    n = NotifyMe()
+    try:
+        n.run()
+    except KeyboardInterrupt:
+        pass
