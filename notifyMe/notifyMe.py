@@ -26,7 +26,7 @@ class NotifyMe(object):
                            for p in self.mesage_names]
 
         self.new_message = False
-        self.email_list = ['swilkins@bnl.gov']
+        self.email_list = ['swilkins@bnl.gov', 'darena@bnl.gov', 'cmazzoli@bnl.gov']
         self.update_time = 5
 
     def _update(self, *args, **kwargs):
