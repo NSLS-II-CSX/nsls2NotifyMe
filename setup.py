@@ -7,15 +7,12 @@ All rights reserved. Use is subject to license terms and conditions.
 
 from setuptools import setup
 
-setup(name='notifyMe',
+setup(name='nsls2NotifyMe',
       version='0.1.0',
       description='NSLS-II Notify Server',
       author='Stuart Wilkins',
       author_email='swilkins@bnl.gov',
-      packages=['notifyMe'],
+      packages=['nsls2NotifyMe'],
       scripts=['scripts/notifyme.py'],
-      entry_points = {
-        'console_scripts': [
-          'notifyme = notifyme:main']
-      }
-     )
+      entry_points={'console_scripts': ['notifyme = notifyme:main']}
+      )

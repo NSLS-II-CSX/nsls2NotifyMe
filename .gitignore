@@ -1,4 +1,4 @@
-notifyMe.egg-info
+nsls2NotifyMe.egg-info
 /target/
 *.pyc
 *.swp
@@ -6,3 +6,4 @@ notifyMe.egg-info
 build
 dist
 doc/_*
+.ropeproject
